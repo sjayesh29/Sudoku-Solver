@@ -42,36 +42,29 @@ def is_valid(puzzle, guess, r, c):
     return True
 
 def solve_sudoku(puzzle):
-    # solve sudoku using backtracking!
-    # our puzzle is a list of lists, where each inner list is a row in our sudoku puzzle
-    # return whether a solution exists
-    # mutates puzzle to be the solution (if solution exists)
-    
-    # step 1: choose somewhere on the puzzle to make a guess
+   
     r, c = next_empty(puzzle)
 
-    # step 1.1: if there's nowhere left, then we're done because we only allowed valid inputs
-    if r is None:  # this is true if our find_next_empty function returns None, None
+    if r is None: 
         return True 
     
-    # step 2: if there is a place to put a number, then make a guess between 1 and 9
-    for guess in range(1, 10): # range(1, 10) is 1, 2, 3, ... 9
-        # step 3: check if this is a valid guess
+    
+    for guess in range(1, 10):
         if is_valid(puzzle, guess, r, c):
-            # step 3.1: if this is a valid guess, then place it at that spot on the puzzle
+            
             puzzle[r][c] = guess
-            # step 4: then we recursively call our solver!
+            
             if solve_sudoku(puzzle):
                 return True
         
-        # step 5: it not valid or if nothing gets returned true, then we need to backtrack and try a new number
+     
         puzzle[r][c] = 0
 
-    # step 6: if none of the numbers that we try work, then this puzzle is UNSOLVABLE!!
-    return False
+    
+    return False  
 
 if __name__ == '__main__':
-    example_board = [
+    board = [
         [3, 9, 0,   0, 5, 0,   0, 0, 0],
         [0, 0, 0,   2, 0, 0,   0, 0, 5],
         [0, 0, 0,   7, 1, 9,   0, 8, 0],
@@ -84,5 +77,5 @@ if __name__ == '__main__':
         [6, 7, 0,   1, 0, 5,   0, 4, 0],
         [1, 0, 9,   0, 0, 0,   2, 0, 0]
     ]
-    print(solve_sudoku(example_board))
-    pprint(example_board)
+    print(solve_sudoku(board))
+    pprint(board)
